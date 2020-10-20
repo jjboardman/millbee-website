@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./twitchthumbnail.jpg";
 import { Helmet } from "react-helmet";
-
+import { TwitchEmbed } from "react-twitch-embed";
 //Clip Card Creation Section
 
 //Most Recent Broadcasts
@@ -136,11 +136,47 @@ function Home(props) {
   return (
     <div id="homecontainer">
       <Helmet>
-        <title>Millbee Home</title>
+        <title>Millbee</title>
       </Helmet>
+
+      <TwitchEmbed
+        id="twitchembedcontainer"
+        channel="millbee"
+        theme="dark"
+        width="50%"
+      />
+
       <RecentBroadcastContainer pastbcastClips={props.pastbcastClips} />
       <ClipsContainer youtubeClips={props.youtubeClips} />
       <TwitchClipsContainer twitchClips={props.twitchClips} />
+      <div id="intro-container">
+        <p id="accesibilityFriendly">
+          Accesibility friendly contact information : Email =
+          Millbeelp@gmail.com pobox = Millbee PO Box 114 PORTHCAWL CF36 9DZ
+          United Kingdom
+        </p>
+        <div className="decorative-lines" />
+        <div className="contact-container">
+          <p className="contact-type">Contact me at :</p>
+          <p className="contact-info" id="email" tabindex="0">
+            contact@millbeelp.com
+          </p>
+        </div>
+        <div className="contact-container">
+          <p className="contact-type">Send me something at :</p>
+
+          <p className="contact-info" id="po-box" tabindex="0">
+            Millbee <br />
+            PO Box 114
+            <br />
+            Porthcawl <br />
+            CF36 9DZ
+            <br />
+            United Kingdom
+          </p>
+        </div>
+        <div className="decorative-lines-bottom"></div>
+      </div>
     </div>
   );
 }

@@ -8,6 +8,18 @@ import Community from "./Components/Community.js";
 import Contact from "./Components/Contact.js";
 import { useState, useEffect } from "react";
 
+import { ApiClient, HelixStream } from "twitch";
+import { ClientCredentialsAuthProvider } from "twitch-auth";
+// import { WebHookListener } from "twitch-webhooks";
+
+const clientSecret = process.env.REACT_APP_API_SECRET;
+const clientId = process.env.REACT_APP_API_ID;
+
+const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
+const apiClient = new ApiClient({ authProvider });
+//
+console.log(apiClient);
+
 function Header(props) {
   return (
     <div id="header">
@@ -23,8 +35,8 @@ function Header(props) {
           />
           <img
             src={logo}
-            height="100px"
-            width="100px"
+            height="75px"
+            width="75px"
             id="logo"
             alt="Millbee logo"
           />
@@ -65,14 +77,15 @@ function Header(props) {
         <Link to="/community" onClick={props.user}>
           <li className="navelement">Community</li>
         </Link>
-        <Link to="/contact" onClick={props.user}>
-          <li className="navelement">Contact</li>
-        </Link>
       </nav>
       <div className="decorative-lines-bottom"></div>
     </div>
   );
 }
+
+// <Link to="/contact" onClick={props.user}>
+//   <li className="navelement">Contact</li>
+// </Link>
 
 //Possible schedule page
 // <Link to="/schedule">
@@ -143,14 +156,14 @@ function App() {
   //Server Calls for API Calls
 
   function twCall() {
-    fetch("http://localhost:9000/testAPI")
+    fetch("https://millbeelp.com/api/testAPI")
       .then((res) => res.json())
       .then((res) => setTwitchClips(res.data));
   }
 
   //this is called whenever "page" is changed to allow online message to appear if changed
   function user() {
-    fetch("http://localhost:9000/userAPI")
+    fetch("https://millbeelp.com/api/userAPI")
       .then((res) => res.json())
       .then((res) => {
         if (res.data.length === 0) {
@@ -162,13 +175,13 @@ function App() {
   }
 
   function ytCall() {
-    fetch("http://localhost:9000/ytclipsAPI")
+    fetch("https://millbeelp.com/api/ytclipsAPI")
       .then((res) => res.json())
       .then((res) => setYoutubeClips(res.items));
   }
 
   function pbCall() {
-    fetch("http://localhost:9000/pastbroadcastAPI")
+    fetch("https://millbeelp.com/api/pastbroadcastAPI")
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
