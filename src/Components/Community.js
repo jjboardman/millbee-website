@@ -11,8 +11,8 @@ const Community = () => {
       </Helmet>
       <WidgetBot
         id="discord"
-        server="557579297028833282"
-        channel="557579297817231405"
+        server="200725148997910528"
+        channel="360881816220991490"
         defer={false}
         height="1000px"
         width="1400px"
@@ -20,27 +20,5 @@ const Community = () => {
     </div>
   );
 };
-//
-// <iframe
-//   src="https://discord.com/widget?id=557579297028833282&theme=dark"
-//   width="350"
-//   height="500"
-//   allowtransparency="true"
-//   frameborder="0"
-//   sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-// ></iframe>
-// <WidgetBot
-// id="discord"
-// server="557579297028833282"
-// channel="557579297817231405"
-// defer={false}
-// height="1000px"
-// width="1400px"
-// />
-// <iframe
-//   src="https://e.widgetbot.io/channels/557579297028833282/557579297817231405"
-//   height="1000"
-//   width="1400"
-//   frameborder="0"
-//   ></iframe>
+
 export default Community;

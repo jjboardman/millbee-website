@@ -7,18 +7,7 @@ import Home from "./Components/Home.js";
 import Community from "./Components/Community.js";
 import Contact from "./Components/Contact.js";
 import { useState, useEffect } from "react";
-
-import { ApiClient, HelixStream } from "twitch";
-import { ClientCredentialsAuthProvider } from "twitch-auth";
-// import { WebHookListener } from "twitch-webhooks";
-
-const clientSecret = process.env.REACT_APP_API_SECRET;
-const clientId = process.env.REACT_APP_API_ID;
-
-const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
-const apiClient = new ApiClient({ authProvider });
-//
-console.log(apiClient);
+import { TwitchPlayer } from "react-twitch-embed";
 
 function Header(props) {
   return (
@@ -97,14 +86,10 @@ function Countdown(props) {
     <div id="live-countdown">
       <div className="divider"></div>
       <div id="deco-text-container">
-        <div
-          className={
-            props.isOnline ? "decorative-lines-white" : "decorative-lines"
-          }
-        ></div>
+        <div className="decorative-lines"></div>
         {props.isOnline ? (
           <a href="https://www.twitch.tv/millbee">
-            <p id="live-text">
+            <p id="offline-text">
               <div id="live-symbol"></div>CURRENTLY LIVE
             </p>
           </a>
@@ -113,13 +98,7 @@ function Countdown(props) {
             <p id="offline-text">CURRENTLY OFFLINE</p>
           </a>
         )}
-        <div
-          className={
-            props.isOnline
-              ? "decorative-lines-bottom-white"
-              : "decorative-lines-bottom"
-          }
-        ></div>
+        <div className="decorative-lines-bottom"></div>
       </div>
       <div className="divider"></div>
     </div>
@@ -152,7 +131,14 @@ function App() {
   const [twitchClips, setTwitchClips] = useState([]);
   const [youtubeClips, setYoutubeClips] = useState([]);
   const [pastbcastClips, setpastbcastClips] = useState([]);
-
+  // const [x, setX] = useState(5);
+  // const [y, setY] = useState(0);
+  const [rbx, setRbx] = useState(5);
+  const [rby, setRby] = useState(0);
+  const [rux, setRux] = useState(5);
+  const [ruy, setRuy] = useState(0);
+  const [rcx, setRcx] = useState(5);
+  const [rcy, setRcy] = useState(0);
   //Server Calls for API Calls
 
   function twCall() {
@@ -184,10 +170,131 @@ function App() {
     fetch("https://millbeelp.com/api/pastbroadcastAPI")
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setpastbcastClips(res.data);
       });
   }
+
+  var next = (d, t) => {
+    if (t === "rb") {
+      switch (d) {
+        case 5:
+          setRbx(10);
+          setRby(5);
+          break;
+        case 10:
+          setRbx(15);
+          setRby(10);
+          break;
+        case 15:
+          setRbx(20);
+          setRby(15);
+          break;
+        case 20:
+          setRbx(5);
+          setRby(0);
+          break;
+      }
+    } else if (t === "ru") {
+      switch (d) {
+        case 5:
+          setRux(10);
+          setRuy(5);
+          break;
+        case 10:
+          setRux(15);
+          setRuy(10);
+          break;
+        case 15:
+          setRux(20);
+          setRuy(15);
+          break;
+        case 20:
+          setRux(5);
+          setRuy(0);
+          break;
+      }
+    } else {
+      switch (d) {
+        case 5:
+          setRcx(10);
+          setRcy(5);
+          break;
+        case 10:
+          setRcx(15);
+          setRcy(10);
+          break;
+        case 15:
+          setRcx(20);
+          setRcy(15);
+          break;
+        case 20:
+          setRcx(5);
+          setRcy(0);
+          break;
+      }
+    }
+  };
+
+  var prev = (d, t) => {
+    if (t === "rb") {
+      switch (d) {
+        case 15:
+          setRbx(10);
+          setRby(5);
+          break;
+        case 20:
+          setRbx(15);
+          setRby(10);
+          break;
+        case 5:
+          setRbx(20);
+          setRby(15);
+          break;
+        case 10:
+          setRbx(5);
+          setRby(0);
+          break;
+      }
+    } else if (t === "ru") {
+      switch (d) {
+        case 15:
+          setRux(10);
+          setRuy(5);
+          break;
+        case 20:
+          setRux(15);
+          setRuy(10);
+          break;
+        case 5:
+          setRux(20);
+          setRuy(15);
+          break;
+        case 10:
+          setRux(5);
+          setRuy(0);
+          break;
+      }
+    } else {
+      switch (d) {
+        case 15:
+          setRcx(10);
+          setRcy(5);
+          break;
+        case 20:
+          setRcx(15);
+          setRcy(10);
+          break;
+        case 5:
+          setRcx(20);
+          setRcy(15);
+          break;
+        case 10:
+          setRcx(5);
+          setRcy(0);
+          break;
+      }
+    }
+  };
 
   useEffect(() => {
     twCall();
@@ -208,10 +315,22 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <TwitchPlayer
+          id="online-checker"
+          channel="millbee"
+          onOnline={() => {
+            user();
+          }}
+          onOffline={() => {
+            user();
+          }}
+          autoplay={false}
+        />
         <Header user={user} pbCall={pbCall} />
-        <Countdown isOnline={isOnline} />
+
         <Switch>
           <Route path="/community">
+            <Countdown isOnline={isOnline} />
             <Community />
           </Route>
           <Route path="/schedule">SCH</Route>
@@ -220,9 +339,18 @@ function App() {
           </Route>
           <Route path="/">
             <Home
+              // width={width}
               twitchClips={twitchClips}
               youtubeClips={youtubeClips}
               pastbcastClips={pastbcastClips}
+              next={next}
+              prev={prev}
+              rbx={rbx}
+              rby={rby}
+              rux={rux}
+              ruy={ruy}
+              rcx={rcx}
+              rcy={rcy}
             />
           </Route>
         </Switch>
