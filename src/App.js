@@ -60,7 +60,7 @@ function Header(props) {
         </div>
       </div>
       <nav id="navcontainer">
-        <Link to="/" onClick={props.user} alt>
+        <Link to="/" onClick={props.user}>
           <li className="navelement">Home</li>
         </Link>
         <Link to="/community" onClick={props.user}>
@@ -147,7 +147,7 @@ function App() {
       .then((res) => setTwitchClips(res.data));
   }
 
-  //this is called whenever "page" is changed to allow online message to appear if changed
+  // this is called whenever "page" is changed to allow online message to appear if changed
   function user() {
     fetch("https://millbeelp.com/api/userAPI")
       .then((res) => res.json())
@@ -159,6 +159,18 @@ function App() {
         }
       });
   }
+
+  // function user() {
+  //   fetch("https://localhost:9000/testAPI")
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       if (res.data.length === 0) {
+  //         setIsOnline(false);
+  //       } else {
+  //         setIsOnline(true);
+  //       }
+  //     });
+  // }
 
   function ytCall() {
     fetch("https://millbeelp.com/api/ytclipsAPI")

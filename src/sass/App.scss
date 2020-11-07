@@ -476,6 +476,20 @@ a {
 
 /*HOME CSS SECTION*/
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0.3;
+  }
+
+  80% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 #homecontainer {
   display: flex;
   flex-direction: column;
@@ -550,6 +564,7 @@ a {
         width: 14rem;
         height: 19rem;
         transition: transform 0.5s, box-shadow 0.5s, color 0.5s;
+        animation: fadeIn 700ms ease-in-out;
         img {
           border-top-right-radius: 10px;
           position: relative;
@@ -589,18 +604,12 @@ a {
   }
 }
 @media screen and (max-width: 1000px) {
-  #twitchembedcontainer {
-    // margin: 0;
-    // width: 100%;
-  }
-
   .main-container {
     .bottom-divider {
       border: solid 1px $text-color;
     }
     .button-cards {
       .clipscontainer {
-        // justify-content: center;
         scrollbar-width: thin;
         scrollbar-color: $text-color $background-color;
         height: 18rem;
@@ -611,11 +620,7 @@ a {
           height: 15rem;
 
           p {
-            // margin: 1rem 1rem;
             font-size: 0.8rem;
-            // // white-space: normal;
-            // overflow: hidden;
-            // text-overflow: ellipsis;
           }
         }
       }
@@ -641,7 +646,7 @@ a {
   background-color: $header-color;
   color: $text-color2;
   margin: auto;
-  margin-top: 3rem;
+  margin-top: 7rem;
   // padding-top: 2rem;
   // padding-bottom: 2rem;
   border-radius: 10px;

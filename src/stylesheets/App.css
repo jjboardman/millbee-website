@@ -393,6 +393,17 @@ a {
 }
 
 /*HOME CSS SECTION*/
+@keyframes fadeIn {
+  0% {
+    opacity: 0.3;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 #homecontainer {
   display: flex;
   flex-direction: column;
@@ -470,6 +481,7 @@ a {
   width: 14rem;
   height: 19rem;
   transition: transform 0.5s, box-shadow 0.5s, color 0.5s;
+  animation: fadeIn 700ms ease-in-out;
 }
 .main-container .button-cards .clipscontainer .clipcard img {
   border-top-right-radius: 10px;
@@ -541,7 +553,7 @@ a {
   background-color: #0c0d0d;
   color: #d7d5ca;
   margin: auto;
-  margin-top: 3rem;
+  margin-top: 7rem;
   border-radius: 10px;
 }
 #intro-container #accesibilityFriendly {
