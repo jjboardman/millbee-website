@@ -1,4 +1,4 @@
-$font-stack: sans-serif;
+$font-stack: "Ubuntu";
 $header-color: #0c0d0d;
 $background-color: #404040;
 $smbutton-color: #505050;
@@ -14,6 +14,7 @@ $shadow-hover: -14px -8px 27px -14px rgba(0, 0, 0, 0.82);
   box-sizing: border-box;
   // scrollbar-width: thin;
   scrollbar-color: $text-color2 $header-color;
+  font-family: $font-stack;
 }
 
 html,
@@ -123,7 +124,7 @@ a {
     margin-right: auto;
     a {
       color: $text-color2;
-
+      font-family: $font-stack;
       li {
         flex-direction: row;
         list-style: none;
@@ -271,10 +272,10 @@ a {
 }
 
 @keyframes fade-in {
-  0% {
+  from {
     opacity: 0;
   }
-  100% {
+  to {
     opacity: 1;
   }
 }
@@ -337,6 +338,20 @@ a {
   }
 }
 
+@-webkit-keyframes growDown {
+  0% {
+    transform: scaleY(0);
+  }
+
+  80% {
+    transform: scaleY(1.1);
+  }
+
+  100% {
+    transform: scaleY(1);
+  }
+}
+
 @keyframes growDown {
   0% {
     transform: scaleY(0);
@@ -365,6 +380,7 @@ a {
   border-bottom-right-radius: 10px;
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
+  -webkit-animation: growDown 600ms ease-in-out forwards;
   animation: growDown 600ms ease-in-out forwards;
   transform-origin: top center;
   #deco-text-container {
@@ -406,6 +422,7 @@ a {
 }
 
 #offline-text {
+  font-family: $font-stack;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -464,7 +481,7 @@ a {
   padding-bottom: 10px;
   color: $text-color2;
   text-align: center;
-
+  border-top: solid 1px $text-color;
   a {
     color: inherit;
     text-decoration: underline;
@@ -475,6 +492,20 @@ a {
 }
 
 /*HOME CSS SECTION*/
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0.3;
+  }
+
+  80% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 
 @keyframes fadeIn {
   0% {
@@ -494,11 +525,90 @@ a {
   display: flex;
   flex-direction: column;
   margin: 2vh auto 5vh auto;
-  // margin-top: 0;
 }
+
+#phrase {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  // text-align: center;
+  background-color: $header-color;
+  width: 40%;
+  padding: 20px;
+  align-items: center;
+  // align-content: center;
+  transform: skewX(25deg);
+  border-radius: 10px;
+  position: relative;
+  // border: solid 2px $text-color;
+  .decorative-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .decorative-lines-bottom {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+#first {
+  // display: flex;
+  margin-left: auto;
+  // margin-right: auto;
+  transform: skewX(-25deg);
+  // align-self: center;
+}
+
+.gaming {
+  -webkit-animation: 2s ease-in-out both fade-in;
+  animation: 2s ease-in-out both fade-in;
+  font-size: 4rem;
+  color: $text-color2;
+  padding: 0.2rem;
+  font-style: italic;
+  // -webkit-text-stroke: 1px black;
+}
+
+@for $i from 1 through 6 {
+  .gaming {
+    &:nth-child(#{7-$i}) {
+      -webkit-animation-delay: $i * (0.1s);
+      animation-delay: $i * (0.1s);
+    }
+  }
+}
+
+#second {
+  align-self: flex-end;
+  margin-right: auto;
+  padding-left: 2rem;
+  transform: skewX(-25deg);
+  // text-align: center;
+}
+
+.welsh {
+  -webkit-animation: 5s ease-in-out both fade-in;
+  animation: 5s ease-in-out both fade-in;
+  font-size: 2.5rem;
+  color: $text-color;
+  font-style: italic;
+}
+
+@for $i from 1 through 19 {
+  .welsh {
+    &:nth-child(#{$i}) {
+      -webkit-animation-delay: $i * (0.1s);
+      animation-delay: $i * (0.1s);
+    }
+  }
+}
+
 #twitchembedcontainer {
   margin: 50px auto 50px auto;
 }
+
 .button-design {
   width: 0;
   height: 0;
@@ -535,6 +645,7 @@ a {
   max-width: 100%;
   // align-content: center;
   p {
+    // font-family: monospace;
     text-align: left;
     font-size: 1.5rem;
     font-weight: bold;
@@ -554,6 +665,24 @@ a {
       justify-content: center;
       margin: auto;
       padding-top: 2rem;
+      @for $i from 1 through 5 {
+        .clipcard {
+          &:nth-child(#{$i}) {
+            img {
+              -webkit-animation-delay: $i * (0.05s);
+              animation-delay: $i * (0.05s);
+            }
+            p {
+              -webkit-animation-delay: $i * (0.05s);
+              animation-delay: $i * (0.05s);
+            }
+            .clip-detail {
+              -webkit-animation-delay: $i * (0.05s);
+              animation-delay: $i * (0.05s);
+            }
+          }
+        }
+      }
       .clipcard {
         position: relative;
         background-color: #0c0d0d;
@@ -564,12 +693,14 @@ a {
         width: 14rem;
         height: 19rem;
         transition: transform 0.5s, box-shadow 0.5s, color 0.5s;
-        animation: fadeIn 700ms ease-in-out;
+
         img {
           border-top-right-radius: 10px;
           position: relative;
           width: 100%;
           height: 45%;
+          -webkit-animation: 0.25s ease-in-out both fade-in;
+          animation: 0.25s ease-in-out both fade-in;
         }
         p {
           font-size: 1rem;
@@ -577,6 +708,8 @@ a {
           margin: 10%;
           color: $text-color2;
           font-weight: normal;
+          -webkit-animation: 0.25s ease-in-out both fade-in;
+          animation: 0.25s ease-in-out both fade-in;
         }
         .decorative-lines {
           position: absolute;
@@ -588,8 +721,11 @@ a {
           margin-left: 15px;
           margin-right: 15px;
           margin-top: 15px;
+          -webkit-animation: 0.25s ease-in-out both fade-in;
+          animation: 0.25s ease-in-out both fade-in;
         }
       }
+
       .clipcard:hover {
         transform: scale(1.03);
         box-shadow: $shadow-preset;
@@ -603,7 +739,58 @@ a {
     }
   }
 }
+
+@media screen and (max-width: 1800px) {
+  .gaming {
+    font-size: 3rem;
+  }
+  .welsh {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .gaming {
+    font-size: 2rem;
+  }
+  .welsh {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  #phrase {
+    width: 100%;
+    // flex-direction: column;
+    transform: skewX(0);
+  }
+  #first {
+    transform: skewX(0);
+  }
+  #second {
+    transform: skewX(0);
+  }
+}
+
 @media screen and (max-width: 1000px) {
+  .next-button {
+    transform: scale(0.6) rotate(-45deg);
+  }
+
+  .prev-button {
+    transform: rotate(135deg);
+  }
+
+  .next-button:hover {
+    transform: scale(1.1) rotate(-45deg);
+    border-color: transparent transparent $text-color transparent;
+  }
+
+  .prev-button:hover {
+    transform: scale(1.1) rotate(135deg);
+    border-color: transparent transparent $text-color transparent;
+  }
+
   .main-container {
     .bottom-divider {
       border: solid 1px $text-color;
@@ -621,6 +808,29 @@ a {
 
           p {
             font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .gaming {
+    font-size: 1.5rem;
+  }
+  .welsh {
+    font-size: 1rem;
+  }
+
+  .main-container {
+    .button-cards {
+      .clipscontainer {
+        .clipcard {
+          width: 8rem;
+          height: 12rem;
+          p {
+            font-size: 0.6rem;
           }
         }
       }

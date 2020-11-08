@@ -16,8 +16,8 @@ function RecentBroadcastClips(props) {
   var realthumb = slicedthumb + "320x180.jpg";
 
   return (
-    <a href={props.url} alt={"Link to" + props.title}>
-      <div className="clipcard">
+    <a href={props.url} alt={"Link to" + props.title} className="clipcard">
+      <div>
         <div className="decorative-lines"></div>
         <img
           src={rawthumb === "" ? logo : realthumb}
@@ -35,8 +35,8 @@ function RecentBroadcastClips(props) {
 //Top viewed Twitch Clips
 function TwitchClips(props) {
   return (
-    <a href={props.url} alt={"Link to" + props.title}>
-      <div className="clipcard">
+    <a href={props.url} alt={"Link to" + props.title} className="clipcard">
+      <div>
         <div className="decorative-lines"></div>
         <img
           src={props.thumbnail}
@@ -57,8 +57,9 @@ function Clips(props) {
     <a
       href={"http://www.youtube.com/watch?v=" + props.videoid}
       alt={"Link to" + props.title}
+      className="clipcard"
     >
-      <div className="clipcard">
+      <div>
         <div className="decorative-lines"></div>
 
         <img src={props.thumbnail} alt="youtube upload thumbnail" />
@@ -198,11 +199,30 @@ const TwitchEm = React.memo(TwitchEmbed);
 //Main Component to be rendered
 //Helmet used to change title of page
 function Home(props) {
+  var gaming = "Gaming".split("");
+
+  var welsh = "With a Welsh Touch.".split("");
+
   return (
     <div id="homecontainer">
       <Helmet>
         <title>Millbee</title>
       </Helmet>
+
+      <div id="phrase">
+        <div className="decorative-lines"></div>
+        <div id="first">
+          {gaming.map((i) => (
+            <span className="gaming">{i}</span>
+          ))}
+        </div>
+        <div id="second">
+          {welsh.map((i) => (
+            <span className="welsh">{i}</span>
+          ))}
+        </div>
+        <div className="decorative-lines-bottom"></div>
+      </div>
 
       <TwitchEm
         id="twitchembedcontainer"
