@@ -6,7 +6,7 @@ import { TwitchEmbed } from "react-twitch-embed";
 // import RecentBroadcastContainer from "./HomeContainer";
 //Clip Card Creation Section
 
-//Most Recent Broadcasts
+// Most Recent Broadcasts
 function RecentBroadcastClips(props) {
   //Method used to set size of thumbnail provided from api call
   var rawthumb = props.thumbnail;
@@ -31,6 +31,32 @@ function RecentBroadcastClips(props) {
     </a>
   );
 }
+//
+// function RecentBroadcastClips(props) {
+//   //Method used to set size of thumbnail provided from api call
+//   var rawthumb = props.thumbnail;
+//
+//   var slicedthumb = rawthumb.slice(0, -22);
+//
+//   var realthumb = slicedthumb + "320x180.jpg";
+//
+//   return (
+//     <a href={props.url} alt={"Link to" + props.title}>
+//       <div className="card" style={{ width: "18rem" }}>
+//         <img
+//           src={rawthumb === "" ? logo : realthumb}
+//           alt="twitch video thumbnail"
+//           width="320px"
+//           height="180px"
+//           className="card-img-top"
+//         />
+//         <div className="card-body">
+//           <p className="card-title">{props.title}</p>
+//         </div>
+//       </div>
+//     </a>
+//   );
+// }
 
 //Top viewed Twitch Clips
 function TwitchClips(props) {
@@ -76,7 +102,7 @@ function Clips(props) {
 //Container for the youtube card
 function ClipsContainer(props) {
   return (
-    <div className="main-container">
+    <div className="main-container container-lg">
       <p>Recent Uploads</p>
       <div className="title-divider"></div>
       <div className="button-cards">
@@ -85,7 +111,7 @@ function ClipsContainer(props) {
           onClick={() => {
             props.prev(props.rux, "ru");
           }}
-          style={props.rux === 5 ? { visibility: "hidden" } : {}}
+          style={props.rux === 4 ? { visibility: "hidden" } : {}}
         ></div>
         <div className="clipscontainer">
           {props.youtubeClips
@@ -115,7 +141,7 @@ function ClipsContainer(props) {
 //Container for twitch clips cards
 function TwitchClipsContainer(props) {
   return (
-    <div className="main-container">
+    <div className="main-container container-lg">
       <p>Top Clips</p>
       <div className="title-divider"></div>
       <div className="button-cards">
@@ -124,7 +150,7 @@ function TwitchClipsContainer(props) {
           onClick={() => {
             props.prev(props.rcx, "tc");
           }}
-          style={props.rcx === 5 ? { visibility: "hidden" } : {}}
+          style={props.rcx === 4 ? { visibility: "hidden" } : {}}
         ></div>
         <div className="clipscontainer">
           {props.twitchClips
@@ -154,7 +180,7 @@ function TwitchClipsContainer(props) {
 //Container for past broadcasts cards
 function RecentBroadcastContainer(props) {
   return (
-    <div className="main-container">
+    <div className="main-container container-lg">
       <p>Recent Broadcasts</p>
 
       <div className="title-divider"></div>
@@ -164,7 +190,7 @@ function RecentBroadcastContainer(props) {
           onClick={() => {
             props.prev(props.rbx, "rb");
           }}
-          style={props.rbx === 5 ? { visibility: "hidden" } : {}}
+          style={props.rbx === 4 ? { visibility: "hidden" } : {}}
         ></div>
         <div className="clipscontainer">
           {props.pastbcastClips
@@ -198,6 +224,24 @@ const TwitchEm = React.memo(TwitchEmbed);
 
 //Main Component to be rendered
 //Helmet used to change title of page
+
+//
+//
+// <div id="phrase">
+//   <div className="decorative-lines"></div>
+//   <div id="first">
+//     {gaming.map((i) => (
+//       <span className="gaming">{i}</span>
+//     ))}
+//   </div>
+//   <div id="second">
+//     {welsh.map((i) => (
+//       <span className="welsh">{i}</span>
+//     ))}
+//   </div>
+//   <div className="decorative-lines-bottom"></div>
+// </div>
+
 function Home(props) {
   var gaming = "Gaming".split("");
 
@@ -209,27 +253,13 @@ function Home(props) {
         <title>Millbee</title>
       </Helmet>
 
-      <div id="phrase">
-        <div className="decorative-lines"></div>
-        <div id="first">
-          {gaming.map((i) => (
-            <span className="gaming">{i}</span>
-          ))}
-        </div>
-        <div id="second">
-          {welsh.map((i) => (
-            <span className="welsh">{i}</span>
-          ))}
-        </div>
-        <div className="decorative-lines-bottom"></div>
-      </div>
-
       <TwitchEm
         id="twitchembedcontainer"
         channel="millbee"
         theme="dark"
-        width={$(window).width() > 1370 ? "50%" : "100%"}
+        width="100%"
         height="35rem"
+        className="container-lg"
       />
 
       <RecentBroadcastContainer
@@ -253,35 +283,6 @@ function Home(props) {
         rcx={props.rcx}
         rcy={props.rcy}
       />
-      <div id="intro-container">
-        <p id="accesibilityFriendly">
-          Accesibility friendly contact information : Email =
-          Millbeelp@gmail.com pobox = Millbee PO Box 114 PORTHCAWL CF36 9DZ
-          United Kingdom
-        </p>
-        <div className="decorative-lines" />
-        <div id="contacts">
-          <div className="contact-container">
-            <p className="contact-type">Contact me at :</p>
-            <p className="contact-info" id="email" tabIndex="0">
-              contact@millbeelp.com
-            </p>
-          </div>
-          <div className="contact-container">
-            <p className="contact-type">Send me something at :</p>
-
-            <p className="contact-info" id="po-box" tabIndex="0">
-              Millbee <br />
-              PO Box 114
-              <br />
-              Porthcawl <br />
-              CF36 9DZ
-              <br />
-              United Kingdom
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
