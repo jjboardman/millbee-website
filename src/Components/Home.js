@@ -102,7 +102,7 @@ function Clips(props) {
 //Container for the youtube card
 function ClipsContainer(props) {
   return (
-    <div className="main-container container-lg">
+    <div className="main-container">
       <p>Recent Uploads</p>
       <div className="title-divider"></div>
       <div className="button-cards">
@@ -115,14 +115,16 @@ function ClipsContainer(props) {
         ></div>
         <div className="clipscontainer">
           {props.youtubeClips
-            .map((d, i) => (
-              <Clips
-                title={d.snippet.title}
-                thumbnail={d.snippet.thumbnails.medium.url}
-                videoid={d.snippet.resourceId.videoId}
-                key={i + 20}
-              />
-            ))
+            .map((d, i) =>
+              d.snippet.title === "Deleted video" ? null : (
+                <Clips
+                  title={d.snippet.title}
+                  thumbnail={d.snippet.thumbnails.medium.url}
+                  videoid={d.snippet.resourceId.videoId}
+                  key={i + 20}
+                />
+              )
+            )
             .slice(props.ruy, props.rux)}
         </div>
         <div
@@ -141,7 +143,7 @@ function ClipsContainer(props) {
 //Container for twitch clips cards
 function TwitchClipsContainer(props) {
   return (
-    <div className="main-container container-lg">
+    <div className="main-container">
       <p>Top Clips</p>
       <div className="title-divider"></div>
       <div className="button-cards">
@@ -180,7 +182,7 @@ function TwitchClipsContainer(props) {
 //Container for past broadcasts cards
 function RecentBroadcastContainer(props) {
   return (
-    <div className="main-container container-lg">
+    <div className="main-container">
       <p>Recent Broadcasts</p>
 
       <div className="title-divider"></div>
@@ -261,28 +263,33 @@ function Home(props) {
         height="35rem"
         className="container-lg"
       />
-
-      <RecentBroadcastContainer
-        pastbcastClips={props.pastbcastClips}
-        next={props.next}
-        prev={props.prev}
-        rbx={props.rbx}
-        rby={props.rby}
-      />
-      <ClipsContainer
-        youtubeClips={props.youtubeClips}
-        next={props.next}
-        prev={props.prev}
-        rux={props.rux}
-        ruy={props.ruy}
-      />
-      <TwitchClipsContainer
-        twitchClips={props.twitchClips}
-        next={props.next}
-        prev={props.prev}
-        rcx={props.rcx}
-        rcy={props.rcy}
-      />
+      <div className="container-lg">
+        <RecentBroadcastContainer
+          pastbcastClips={props.pastbcastClips}
+          next={props.next}
+          prev={props.prev}
+          rbx={props.rbx}
+          rby={props.rby}
+        />
+      </div>
+      <div className="container-lg">
+        <ClipsContainer
+          youtubeClips={props.youtubeClips}
+          next={props.next}
+          prev={props.prev}
+          rux={props.rux}
+          ruy={props.ruy}
+        />
+      </div>
+      <div className="container-lg">
+        <TwitchClipsContainer
+          twitchClips={props.twitchClips}
+          next={props.next}
+          prev={props.prev}
+          rcx={props.rcx}
+          rcy={props.rcy}
+        />
+      </div>
     </div>
   );
 }
