@@ -1,3 +1,7 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+// import $ from "jquery";
+// import Popper from "popper.js";
+// import "bootstrap/dist/js/bootstrap.bundle.min";
 import React from "react";
 import logo from "./logo.png";
 import banner from "./banner.png";
@@ -5,17 +9,19 @@ import "./stylesheets/App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./Components/Home.js";
 import Community from "./Components/Community.js";
-import Contact from "./Components/Contact.js";
-import Scheduler from "./Components/Scheduler.js";
+import Schedule from "./Components/Schedule.js";
 import Yearofgaming from "./Components/Yearofgaming.js";
 import Onmyradar from "./Components/Radar.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { TwitchPlayer } from "react-twitch-embed";
 
-import $ from "jquery";
+// import $ from "jquery";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
+
+// import "./sass/App.scss";
+
 // <div className="decorative-lines"></div>
 // <div className="decorative-lines-bottom"></div>
 
@@ -31,15 +37,17 @@ import "bootstrap/dist/js/bootstrap";
 function Header(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark nav p-0 position-relative">
-      <Link to="/" className="navbar-brand nav-link px-2 py-1">
-        <img
-          src={logo}
-          height="60px"
-          width="60px"
-          id="logo"
-          alt="Millbee logo"
-        />
-      </Link>
+      <div className="navbar-brand nav-link px-3 py-1">
+        <Link to="/">
+          <img
+            src={logo}
+            height="60px"
+            width="60px"
+            id="logo"
+            alt="Millbee logo"
+          />
+        </Link>
+      </div>
 
       <div
         id="link-container"
@@ -75,7 +83,7 @@ function Header(props) {
         </a>
       </div>
 
-      <div className="navbar-nav ml-0 d-none d-xl-block">
+      <div className="navbar-nav ml-4 d-none d-lg-block">
         {props.isOnline ? (
           <a
             href="https://www.twitch.tv/millbee"
@@ -89,19 +97,19 @@ function Header(props) {
       </div>
 
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
         data-toggle="collapse"
-        data-target="#navbarTogglerDemo02"
-        aria-controls="navbarTogglerDemo02"
+        data-target="#navbarToggler"
+        aria-controls="navbarToggler"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarToggler">
-        <ul class="navbar-nav ml-auto mt-0">
+      <div className="collapse navbar-collapse" id="navbarToggler">
+        <ul className="navbar-nav ml-auto mt-0">
           <button className="nav-item btn btn-outline-warning px-2">
             <Link to="/" className="nav-link">
               Home
@@ -123,91 +131,16 @@ function Header(props) {
               Community
             </Link>
           </button>
+          <button className="nav-item btn btn-outline-warning px-0">
+            <Link to="/schedule" className="nav-link">
+              Schedule
+            </Link>
+          </button>
         </ul>
       </div>
     </nav>
   );
 }
-
-// <nav className="navbar-nav ml-auto btn-group d-none d-lg-block">
-//   <button className="nav-item btn btn-outline-warning">
-//     <Link to="/" className="nav-link">
-//       Home
-//     </Link>
-//   </button>
-//   <button className="nav-item btn btn-outline-warning">
-//     <Link to="/yearofgaming" className="nav-link">
-//       31 Years of Gaming
-//     </Link>
-//   </button>
-//   <button className="nav-item btn btn-outline-warning">
-//     <Link to="/community" className="nav-link">
-//       Community
-//     </Link>
-//   </button>
-// </nav>
-
-// <div className="dropdown d-md-none ">
-//   <button
-//     className="btn dropdown-toggle"
-//     id="dropdownMenuLink"
-//     data-toggle="dropdown"
-//     type="button"
-//   >
-//     <span className="navbar-toggler-icon"></span>
-//   </button>
-//   <ul className="dropdown-menu">
-//     <li>
-//       <Link to="/" className="dropdown-item">
-//         Home
-//       </Link>
-//     </li>
-//     <li>
-//       {" "}
-//       <Link to="/yearofgaming" className="dropdown-item">
-//         31 Years of Gaming
-//       </Link>
-//     </li>
-//     <li>
-//       <Link to="/community" className="dropdown-item">
-//         Community
-//       </Link>
-//     </li>
-//   </ul>
-// </div>
-
-// <Link to="/contact" onClick={props.user}>
-//   <li className="navelement">Contact</li>
-// </Link>
-//
-// Possible schedule page
-// <Link to="/schedule">
-//   <li className="navelement">Schedule</li>
-// </Link>
-//
-// function Countdown(props) {
-//   return (
-//     <div id="live-countdown">
-//       <div className="divider"></div>
-//       <div id="deco-text-container">
-//         <div className="decorative-lines"></div>
-//         {props.isOnline ? (
-//           <a href="https://www.twitch.tv/millbee">
-//             <p id="offline-text">
-//               <span id="live-symbol"></span>CURRENTLY LIVE
-//             </p>
-//           </a>
-//         ) : (
-//           <a href="https://www.twitch.tv/millbee">
-//             <p id="offline-text">CURRENTLY OFFLINE</p>
-//           </a>
-//         )}
-//         <div className="decorative-lines-bottom"></div>
-//       </div>
-//       <div className="divider"></div>
-//     </div>
-//   );
-// }
 
 function Footer() {
   let date = new Date();
@@ -237,7 +170,7 @@ function App() {
   const [pastbcastClips, setpastbcastClips] = useState([]);
   const [list, setList] = useState([]);
   const [releases, setReleases] = useState([]);
-
+  const [schedule, setSchedule] = useState([]);
   // const [x, setX] = useState(5);
   // const [y, setY] = useState(0);
   const [rbx, setRbx] = useState(4);
@@ -250,16 +183,17 @@ function App() {
   //Server Calls for API Calls
 
   function twCall() {
-    fetch("https://millbeelp.com/api/testAPI")
+    fetch("https://millbeelp.com/api/clips")
       .then((res) => res.json())
       .then((res) => setTwitchClips(res.data));
   }
 
   // this is called whenever "page" is changed to allow online message to appear if changed
   function user() {
-    fetch("https://millbeelp.com/api/userAPI")
+    fetch("https://millbeelp.com/api/user")
       .then((res) => res.json())
       .then((res) => {
+        // console.log(res);
         if (res.data.length === 0) {
           setIsOnline(false);
         } else {
@@ -268,31 +202,37 @@ function App() {
       });
   }
 
-  function test() {
-    console.log("THIS");
-    fetch("http://localhost:9000/api/info/challenge")
+  function challengeCall() {
+    // console.log("THIS");
+    fetch("https://millbeelp.com/api/info/challenge")
       .then((res) => res.json())
       .then((res) => setList(res.feed.entry));
   }
-
-  function release() {
-    fetch("http://localhost:9000/api/info/releases")
+  // /home/solas/Websites/frontend-test-main/index.html
+  function releaseCall() {
+    fetch("https://millbeelp.com/api/info/releases")
       .then((res) => res.json())
       .then((res) => setReleases(res.feed.entry));
   }
 
   function ytCall() {
-    fetch("https://millbeelp.com/api/ytclipsAPI")
+    fetch("https://millbeelp.com/api/youtube")
       .then((res) => res.json())
       .then((res) => setYoutubeClips(res.items));
   }
 
   function pbCall() {
-    fetch("https://millbeelp.com/api/pastbroadcastAPI")
+    fetch("https://millbeelp.com/api/pastbroadcast")
       .then((res) => res.json())
       .then((res) => {
         setpastbcastClips(res.data);
       });
+  }
+
+  function scheduleCall() {
+    fetch("http://localhost:8080/api/event?userId=1")
+      .then((res) => res.json())
+      .then((res) => setSchedule(res));
   }
 
   var next = (d, t) => {
@@ -442,8 +382,8 @@ function App() {
   };
 
   useEffect(() => {
-    test();
-    release();
+    challengeCall();
+    releaseCall();
   }, []);
 
   useEffect(() => {
@@ -460,6 +400,10 @@ function App() {
 
   useEffect(() => {
     ytCall();
+  }, []);
+
+  useEffect(() => {
+    scheduleCall();
   }, []);
 
   return (
@@ -491,9 +435,10 @@ function App() {
             <Yearofgaming list={list} />
           </Route>
 
-          <Route path="/contact">
-            <Contact />
+          <Route path="/schedule">
+            <Schedule schedule={schedule} />
           </Route>
+
           <Route path="/">
             <Home
               // width={width}
